@@ -1,23 +1,27 @@
 class TwoSum:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
-        result = list()
-        for index in range(len(nums)):
-            int_x = target - nums[index];
-            int_y = self.findIndex(int_x, index, nums)
-            if int_y is not None:
-                result.append(int_y)
+        # Initialize an empty dictionary to store number and its index
+        num_to_index = {}
 
-        result.sort()
-        print(result)
+        # Iterate over the list
+        for index, num in enumerate(nums):
+            # Calculate the complement
+            complement = target - num
 
-    def findIndex(self, x: int, index: int, nums: list[int]):
-        for i in range(len(nums)):
-            if i != index and x == nums[i]:
-                return i
+            # Check if complement is in the dictionary
+            if complement in num_to_index:
+                # Return the indices of the complement and the current number
+                return [num_to_index[complement], index]
+
+            # Add the current number and its index to the dictionary
+            num_to_index[num] = index
+
+        # If no solution is found (though guaranteed to exist), return None
+        return None
 
 
 
 arr_nums = [int(x) for x in list(input("Enter the list items space separated:").strip(" ").split(" "))]
 int_target = int(input("Enter Target:"))
 obj_two_sum = TwoSum()
-obj_two_sum.twoSum(arr_nums, int_target)
+print(obj_two_sum.twoSum(arr_nums, int_target))
